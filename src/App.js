@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import Sidebar from './components/Sidebar';
+import Header from './components/Header';
+// import Dashboard from './pages/Dashboard';
+// import PendingReview from './pages/PendingReview';
+// import PendingStudent from './pages/PendingStudent';
+// import EditableTable from './pages/test';
+import StudentProfile from './pages/StudentProfile';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex">
+      <Sidebar/>
+      <div className="flex-1 flex flex-col">
+        <Header />
+        <StudentProfile />
+      </div>
     </div>
   );
 }

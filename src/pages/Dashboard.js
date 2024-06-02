@@ -1,0 +1,149 @@
+import React from 'react'
+import Card from '../components/Card'
+import CalendarCard from '../components/CalendarCard'
+
+const Dashboard = () => {
+
+  const data = [
+    { id: 1, title: "Total School", value: 15 },
+    { id: 2, title: "Pending Review", value: 473 },
+    { id: 3, title: "Scanned", value: 461 },
+    { id: 4, title: "Report Submitted", value: 9 },
+  ]
+  
+  const calendar = [
+    {
+      title: "9th Class",
+      description: [
+        { date: "12-10-2024", event: "Registration Apply" },
+        { date: "25-11-2024", event: "Midterm Exam" },
+        { date: "15-12-2024", event: "Result Declaration" }
+      ]
+    },
+    {
+      title: "10th Class",
+      description: [
+        { date: "07-04-2024", event: "Apply Exam Form" },
+        { date: "10-06-2024", event: "Practical Exam" },
+        { date: "20-07-2024", event: "Final Exam" }
+      ]
+    },
+    {
+      title: "11th Class",
+      description: [
+        { date: "19-08-2024", event: "Registration Apply" },
+        { date: "10-10-2024", event: "Term Paper Submission" },
+        { date: "15-11-2024", event: "Project Presentation" }
+      ]
+    },
+    {
+      title: "12th Class",
+      description: [
+        { date: "03-02-2024", event: "Apply Exam Form" },
+        { date: "15-03-2024", event: "Mock Test" },
+        { date: "25-04-2024", event: "Final Exam" }
+      ]
+    }
+  ];
+
+  const schooldata = [
+    {
+      id: 1,
+      schoolcode: 52046,
+      schoolname: "High School, Halsi",
+      total: 450,
+      pending: 345,
+      approved: 94,
+      auto: 11
+    },
+    {
+      id: 2,
+      schoolcode: 52047,
+      schoolname: "Central School, Main Street",
+      total: 500,
+      pending: 200,
+      approved: 250,
+      auto: 50
+    },
+    {
+      id: 3,
+      schoolcode: 52048,
+      schoolname: "Green Valley High",
+      total: 600,
+      pending: 100,
+      approved: 450,
+      auto: 50
+    },
+    {
+      id: 4,
+      schoolcode: 52049,
+      schoolname: "Mountain View School",
+      total: 300,
+      pending: 50,
+      approved: 200,
+      auto: 50
+    },
+    {
+      id: 5,
+      schoolcode: 52050,
+      schoolname: "Riverdale High School",
+      total: 550,
+      pending: 300,
+      approved: 200,
+      auto: 50
+    }
+  ];
+
+  return (
+    <div className="p-4">
+      <h2 className="text-2xl font-bold mb-4">Dashboard Content</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {data.map(carddata => (<Card data={carddata} key={carddata.id} />))}
+      </div>
+      <hr class="h-px my-3 bg-gray-200 border-0 dark:bg-gray-400"></hr>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {calendar.map(carddata => (<CalendarCard data={carddata} key={carddata.id} />))}
+      </div>
+      <hr class="h-px my-3 bg-gray-200 border-0 dark:bg-gray-400"></hr>
+
+      <div className="grid grid-cols-1 gap-4">
+        <div className="p-4 shadow rounded-md border bg-gray-200 ">
+          <h3 className="text-2xl font-bold mb-3" >School Data</h3>
+
+          <div className="overflow-x-auto">
+          <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+            <thead className="bg-gray-500 border-b">
+              <tr>
+                <th className="py-3 px-6 text-left text-sm font-medium text-white w-[5%]">ID</th>
+                <th className="py-3 px-6 text-left text-sm font-medium text-white w-[12%]">School Code</th>
+                <th className="py-3 px-6 text-left text-sm font-medium text-white">School Name</th>
+                <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">Total</th>
+                <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">Pending</th>
+                <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">Approved</th>
+                <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">Auto</th>
+                <th className="py-3 px-6 text-left text-sm font-medium text-white w-[8%]">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {schooldata.map((school, index) => (
+                <tr key={school.id} className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.id}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.schoolcode}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.schoolname}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.total}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.pending}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.approved}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.auto}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700"><button className="rounded-md px-3 py-1 ring-2 ring-pink-300 ring-inset">View</button></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Dashboard;
