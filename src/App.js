@@ -5,7 +5,7 @@ import Header from './components/Header';
 // import PendingStudent from './pages/PendingStudent';
 // import EditableTable from './pages/test';
 import StudentProfile from './pages/StudentProfile';
-
+// import MyTable from './pages/test';
 function App() {
   return (
     <div className="flex">
