@@ -67,8 +67,8 @@ const StudentProfile = () => {
       const coordinate = {
         width: zoomCoords? `${zoomCoords.width}%` : '100%',
         height: zoomCoords  ? `${zoomCoords.height}px` : 'auto', 
-        objectFit:  zoomCoords  ? 'cover' : 'inherit', // Prevent stretching of the image
-        objectPosition: zoomCoords ? `-${zoomCoords.x}px -${zoomCoords.y}px` : '0px - 0px', // Move the image to show the desired region
+        objectFit:  zoomCoords  ? 'cover' : 'inherit',
+        objectPosition: zoomCoords ? `-${zoomCoords.x}px -${zoomCoords.y}px` : '0px - 0px',
       };
 
     return (
