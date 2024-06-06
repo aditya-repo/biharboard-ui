@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom';
 
 const PendingReview = () => {
 
@@ -81,7 +82,7 @@ const PendingReview = () => {
                   <td className="py-2 px-6 text-sm text-gray-700">{school.auto}</td>
                   <td className="py-2 px-6 text-sm text-gray-700">{school.approved}</td>
                   <td className="py-2 px-6 text-sm text-gray-700">{school.pending}</td>
-                  <td className="py-2 px-6 text-sm text-gray-700"><button className="rounded-md px-3 py-1 ring-2 ring-pink-300 ring-inset">View</button></td>
+                  <td className="py-2 px-6 text-sm text-gray-700"><NavLink to={'/pending-review/students'}><button className="rounded-md px-3 py-1 ring-2 ring-pink-300 ring-inset">View</button></NavLink></td>
                 </tr>
               ))}
             </tbody>

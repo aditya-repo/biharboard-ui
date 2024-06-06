@@ -9,7 +9,7 @@ const CalendarCard = (props) => {
       <div className="p-4 bg-white shadow rounded-md border">
         <ul>
           {description.map((data, index) => (
-            <li key={index} className='border-b-2 p-2 border-dashed  font-normal text-sm'>
+            <li key={index} className='border-b-2 p-2 border-solid  font-normal text-sm'>
               <span className='mr-2'>{data.date}</span> | <span className='ml-2'>{data.event}</span>
             </li>
           ))}
