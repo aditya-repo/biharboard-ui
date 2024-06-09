@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
+const URL = 'http://localhost:4040/'
 
-const PendingStudent = () => {
+const RawStudentData = () => {
   const [studentlist, setStudentlist] = useState([]);
 
+  const {id} = useParams()
+
   useEffect(() => {
-    fetch("http://localhost:4040/student")
+    fetch(`${URL}school/rawstudentlist/${id}`)
       .then((data) => data.json())
       .then((data) => setStudentlist(data))
       .catch((error) => console.error("console error", error));
-  }, []);
+
+  }, [id]);
 
   return (
     <div className="p-4">
@@ -26,7 +30,10 @@ const PendingStudent = () => {
                     ID
                   </th>
                   <th className="py-3 px-6 text-left text-sm font-medium text-white w-[8%]">
-                    Category
+                    Student Id
+                  </th>
+                  <th className="py-3 px-6 text-left text-sm font-medium text-white w-[8%]">
+                    Form
                   </th>
                   <th className="py-3 px-6 text-left text-sm font-medium text-white w-[20%]">
                     Name
@@ -35,13 +42,16 @@ const PendingStudent = () => {
                     Gender
                   </th>
                   <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">
-                    Category
+                    Caste
                   </th>
                   <th className="py-3 px-6 text-left text-sm font-medium text-white w-[15%]">
                     Father
                   </th>
                   <th className="py-3 px-6 text-left text-sm font-medium text-white w-[15%]">
                     Mother
+                  </th>
+                  <th className="py-3 px-6 text-left text-sm font-medium text-white w-[15%]">
+                    Adhaar
                   </th>
                   <th className="py-3 px-6 text-left text-sm font-medium text-white w-[15%]">
                     Mobile
@@ -57,9 +67,12 @@ const PendingStudent = () => {
                     key={s.id}
                     className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
                   >
-                    <td className="py-2 px-6 text-sm text-gray-700">{index}</td>
+                    <td className="py-2 px-6 text-sm text-gray-700">{index+1}</td>
                     <td className="py-2 px-6 text-sm text-gray-700">
-                      {s.category}
+                      {s.studentuid}
+                    </td>
+                    <td className="py-2 px-6 text-sm text-gray-700">
+                      {s.formtype}
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
                       {s.name}
@@ -68,7 +81,7 @@ const PendingStudent = () => {
                       {s.gender}
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
-                      {s.category}
+                      {s.caste}
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
                       {s.father}
@@ -77,10 +90,13 @@ const PendingStudent = () => {
                       {s.mother}
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
-                      {s.mobile}
+                      {s.adhaar}
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
-                      <NavLink to={"/pending-review/students/34654"}>
+                      {s.phone}
+                    </td>
+                    <td className="py-2 px-6 text-sm text-gray-700">
+                      <NavLink to={`/pending-review/students/${s.studentuid}`}>
                         <button className="rounded-md px-3 py-1 ring-2 ring-pink-300 ring-inset">
                           View
                         </button>
@@ -97,4 +113,4 @@ const PendingStudent = () => {
   );
 };
 
-export default PendingStudent;
+export default RawStudentData;

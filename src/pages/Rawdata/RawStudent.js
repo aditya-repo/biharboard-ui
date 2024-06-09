@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-
-const SchoolList = () => {
+const URL = 'http://localhost:4040/'
+const RawStudent = () => {
   const [schoollist, setSchoollist] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:4040/school")
+    fetch(`${URL}student/rawdata`)
       .then((data) => data.json())
       .then((data) => setSchoollist(data))
       .catch((error) => console.error("console error", error));
@@ -101,4 +101,4 @@ const SchoolList = () => {
   );
 };
 
-export default SchoolList;
+export default RawStudent;

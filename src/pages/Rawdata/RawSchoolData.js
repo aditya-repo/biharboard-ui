@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+const URL = 'http://localhost:4040/'
 
-const SchoolList = () => {
+const RawDataSchoolWise = () => {
   const [schoollist, setSchoollist] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:4040/school")
+    fetch(`${URL}school/rawschoollist`)
       .then((data) => data.json())
       .then((data) => setSchoollist(data))
       .catch((error) => console.error("console error", error));
   }, []);
-
-  // Logging the array to verify the output
 
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
       <div className="grid grid-cols-1 gap-4">
         <div className="p-4 shadow rounded-md border bg-gray-200 ">
-          <h3 className="text-2xl font-bold mb-3">School Lists:</h3>
+          <h3 className="text-2xl font-bold mb-3">Raw Scanned Form Data:</h3>
 
           <div className="overflow-x-auto">
             <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
@@ -37,16 +36,10 @@ const SchoolList = () => {
                     Principal
                   </th>
                   <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">
-                    District
-                  </th>
-                  <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">
                     Contact
                   </th>
-                  <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">
-                    Matriculation
-                  </th>
-                  <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">
-                    Intermediate
+                  <th className="py-3 px-6 text-center text-sm font-medium text-white w-[15%]">
+                    Student Count
                   </th>
                   <th className="py-3 px-6 text-left text-sm font-medium text-white w-[8%]">
                     Action
@@ -72,19 +65,13 @@ const SchoolList = () => {
                       {school.principal}
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
-                      {school.district}
-                    </td>
-                    <td className="py-2 px-6 text-sm text-gray-700">
                       {school.mobile}
                     </td>
-                    <td className="py-2 px-6 text-sm text-gray-700">
-                      {school.matric}
+                    <td className="py-2 px-6 text-sm text-center text-gray-700">
+                      {school.studentCount}
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
-                      {school.inter}
-                    </td>
-                    <td className="py-2 px-6 text-sm text-gray-700">
-                      <NavLink to={"/pending-review/students"}>
+                      <NavLink to={`/raw-studentdata/${school.schoolcode}`}>
                         <button className="rounded-md px-3 py-1 ring-2 ring-pink-300 ring-inset">
                           View
                         </button>
@@ -101,4 +88,4 @@ const SchoolList = () => {
   );
 };
 
-export default SchoolList;
+export default RawDataSchoolWise;

@@ -1,14 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Card from '../components/Card'
 import CalendarCard from '../components/CalendarCard'
 
+const BASEURL = 'http://localhost:4040/'
 const Dashboard = () => {
 
+  const [schooldata, setSchooldata] = useState([])
+  const [rawdata, setRawdata] = useState(0)
+  const [student, setStudent] = useState({})
+
+  console.log(BASEURL);
+
   const data = [
-    { id: 1, title: "Total School", value: 15 },
-    { id: 2, title: "Pending Review", value: 473 },
-    { id: 3, title: "Scanned", value: 461 },
-    { id: 4, title: "Report Submitted", value: 9 },
+    { id: 1, title: "Total School", value: schooldata.length },
+    { id: 2, title: "Scanned Form", value: rawdata },
+    { id: 3, title: "Total Student", value: student.total },
+    { id: 4, title: "Approved", value: student.approved },
+    { id: 5, title: "Auto Approved", value: student.auto },
+    { id: 6, title: "Pending", value: student.pending },
   ]
   
   const calendar = [
@@ -46,58 +55,21 @@ const Dashboard = () => {
     }
   ];
 
-  const schooldata = [
-    {
-      id: 1,
-      schoolcode: 52046,
-      schoolname: "High School, Halsi",
-      total: 450,
-      pending: 345,
-      approved: 94,
-      auto: 11
-    },
-    {
-      id: 2,
-      schoolcode: 52047,
-      schoolname: "Central School, Main Street",
-      total: 500,
-      pending: 200,
-      approved: 250,
-      auto: 50
-    },
-    {
-      id: 3,
-      schoolcode: 52048,
-      schoolname: "Green Valley High",
-      total: 600,
-      pending: 100,
-      approved: 450,
-      auto: 50
-    },
-    {
-      id: 4,
-      schoolcode: 52049,
-      schoolname: "Mountain View School",
-      total: 300,
-      pending: 50,
-      approved: 200,
-      auto: 50
-    },
-    {
-      id: 5,
-      schoolcode: 52050,
-      schoolname: "Riverdale High School",
-      total: 550,
-      pending: 300,
-      approved: 200,
-      auto: 50
-    }
-  ];
+
+  useEffect(()=>{
+    fetch(`${BASEURL}school/student-count`).then(response => response.json()).then(data => setSchooldata(data)).catch(error=> console.log('Console error'))
+  }, [])
+  useEffect(()=>{
+    fetch(`${BASEURL}dashboard/studentcount`).then(response => response.json()).then(data => setRawdata(data)).catch(error=> console.log('Console error'))
+  }, [])
+  useEffect(()=>{
+    fetch(`${BASEURL}dashboard/student`).then(response => response.json()).then(data => setStudent(data)).catch(error=> console.log('Console error'))
+  }, [])
 
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Dashboard Content</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {data.map(carddata => (<Card data={carddata} key={carddata.id} />))}
       </div>
       <hr class="h-px my-3 bg-gray-200 border-0 dark:bg-gray-400"></hr>
@@ -117,6 +89,7 @@ const Dashboard = () => {
                 <th className="py-3 px-6 text-left text-sm font-medium text-white w-[5%]">ID</th>
                 <th className="py-3 px-6 text-left text-sm font-medium text-white w-[12%]">School Code</th>
                 <th className="py-3 px-6 text-left text-sm font-medium text-white">School Name</th>
+                <th className="py-3 px-6 text-left text-sm font-medium text-white w-[15%]">Mobile</th>
                 <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">Total</th>
                 <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">Pending</th>
                 <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">Approved</th>
@@ -127,13 +100,14 @@ const Dashboard = () => {
             <tbody>
               {schooldata.map((school, index) => (
                 <tr key={school.id} className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}>
-                  <td className="py-2 px-6 text-sm text-gray-700">{school.id}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700">{index +1}</td>
                   <td className="py-2 px-6 text-sm text-gray-700">{school.schoolcode}</td>
                   <td className="py-2 px-6 text-sm text-gray-700">{school.schoolname}</td>
-                  <td className="py-2 px-6 text-sm text-gray-700">{school.total}</td>
-                  <td className="py-2 px-6 text-sm text-gray-700">{school.pending}</td>
-                  <td className="py-2 px-6 text-sm text-gray-700">{school.approved}</td>
-                  <td className="py-2 px-6 text-sm text-gray-700">{school.auto}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.mobile}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.studentCount}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.pendingCount}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.arrovedCount}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.autoCount}</td>
                   <td className="py-2 px-6 text-sm text-gray-700"><button className="rounded-md px-3 py-1 ring-2 ring-pink-300 ring-inset">View</button></td>
                 </tr>
               ))}

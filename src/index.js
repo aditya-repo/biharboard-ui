@@ -6,58 +6,33 @@ import reportWebVitals from './reportWebVitals';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import Layout from './Layout';
 import Dashboard from './pages/Dashboard';
-import PendingReview from './pages/PendingReview';
-import StudentProfile from './pages/StudentProfile';
+import PendingReview from './pages/PendingReview/PendingReview';
+import PendingStudentProfile from './pages/PendingReview/StudentProfile';
 import ReportsPage from './pages/Reports';
-import PendingStudent from './pages/PendingStudent';
+import PendingStudent from './pages/PendingReview/PendingStudent';
 import SchoolList from './pages/SchoolList';
-
-// const router = createBrowserRouter([
-//   {
-//     path: '/',
-//     element: <Layout />,
-//     children:[
-//       {
-//         path: "",
-//         element: <Dashboard />
-//       },
-//       {
-//         path: "pending-review",
-//         element: <PendingReview />
-//       },
-//       {
-//         path: "students",
-//         element: <StudentProfile />
-//       },
-//       {
-//         path: "reports",
-//         element: <ReportsPage />
-//       }
-//     ]
-//   }
-// ])
+import RawDataSchoolWise from './pages/Rawdata/RawSchoolData';
+import RawStudentData from './pages/Rawdata/RawStudentData';
+import StudentListPage from './pages/StudentProfile/studentList';
+import StudentProfile from './pages/StudentProfile/StudentProfile';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />} >
       <Route path='' element={<Dashboard />} />
+      <Route path='scanned-form' element={<PendingReview/>}/>
       <Route path='pending-review' element={<PendingReview/>}/>
-      <Route path='pending-review/students' element={<PendingStudent/>}/>
-      <Route path='pending-review/students/:userid' element={<StudentProfile />}/>
-      <Route path='students' element={<PendingStudent />}/>
+      <Route path='pending-review/students/:userid' element={<PendingStudentProfile />}/>
+      <Route path='pending-review/:id' element={<PendingStudent/>}/>
+      <Route path='students' element={<StudentListPage />}/>
+      <Route path='student/:id' element={<StudentProfile />}/>
       <Route path='schools' element={<SchoolList />}/>
       <Route path='reports' element={<ReportsPage />}/>
+      <Route path='raw-schoollist' element={<RawDataSchoolWise />}/>
+      <Route path='raw-studentdata/:id' element={<RawStudentData />}/>
     </Route>
   )
 )
-
-// const router = createBrowserRouter(
-//   createRoutesFromElements(
-//     <Route path="/" element={<Layout />}>
-//       <Route path="" element={<Home/>} />
-//     </Route>
-//   )
-// )
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

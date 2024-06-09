@@ -1,15 +1,36 @@
-import React, { useState } from "react";
-import FormImage1 from "../assets/img/form1.jpeg";
+import React, { useEffect, useState } from "react";
+import FormImage1 from "../../assets/img/form1.jpeg";
 // import FormImage2 from '../assets/img/form2.jpeg'
-import Photo from "../assets/img/photo.jpg";
-import EditableTableCell from "../components/EditTableCell";
+import Photo from "../../assets/img/photo.jpg";
+import EditableTableCell from "../../components/EditTableCell";
+import { useParams } from "react-router-dom";
+import mapStudentData from "../../util/mapstudentData";
 // import Hindi from '../assets/img/hindi.jpg'
 // import English from '../assets/img/english.jpg'
 // import Parent from '../assets/img/sign.jpg'
 
-const StudentProfile = () => {
+const URL = 'http://localhost:4040/'
+
+
+const PendingStudentProfile = () => {
   // For image
   const [selectedImage, setSelectedImage] = useState(null);
+  const { userid } = useParams();
+  const [profiledata, setProfiledata] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`${URL}student/pendingstudents/${userid}`);
+      const data = await response.json();
+      console.log(data[0]);
+      const result = mapStudentData(data[0])
+      setProfiledata(result);
+    };
+
+    fetchData();
+  }, [userid]);
+
+
 
   const handleClick = (imgSrc) => {
     setSelectedImage(imgSrc);
@@ -28,53 +49,52 @@ const StudentProfile = () => {
     { id: 6, name: "Item 6", imgSrc: "https://via.placeholder.com/150" },
   ];
 
-  // For Profile data
-  const profiledata = [
-    { id: 1, column: "01", name: "Name", value: "Aditya Raj", field: "name" },
-    { id: 2, column: "02", name: "Gender", value: "Male", field: "gender" },
-    {
-      id: 3,
-      column: "03",
-      name: "Category",
-      value: "General",
-      field: "category",
-    },
-    {
-      id: 4,
-      column: "04",
-      name: "Date Of Birth",
-      value: "1990-01-01",
-      field: "dob",
-    },
-    {
-      id: 5,
-      column: "05",
-      name: "Father",
-      value: "Raj Kumar",
-      field: "father",
-    },
-    {
-      id: 6,
-      column: "06",
-      name: "Mother",
-      value: "Meera Devi",
-      field: "mother",
-    },
-    {
-      id: 7,
-      column: "07",
-      name: "Mobile",
-      value: "1234567890",
-      field: "mobile",
-    },
-    {
-      id: 8,
-      column: "08",
-      name: "Religion",
-      value: "Hindu",
-      field: "religion",
-    },
-  ];
+  // const profiledata = [
+  //   { id: 1, column: "01", name: "Name", value: "Aditya Raj", field: "name" },
+  //   { id: 2, column: "02", name: "Gender", value: "Male", field: "gender" },
+  //   {
+  //     id: 3,
+  //     column: "03",
+  //     name: "Category",
+  //     value: "General",
+  //     field: "category",
+  //   },
+  //   {
+  //     id: 4,
+  //     column: "04",
+  //     name: "Date Of Birth",
+  //     value: "1990-01-01",
+  //     field: "dob",
+  //   },
+  //   {
+  //     id: 5,
+  //     column: "05",
+  //     name: "Father",
+  //     value: "Raj Kumar",
+  //     field: "father",
+  //   },
+  //   {
+  //     id: 6,
+  //     column: "06",
+  //     name: "Mother",
+  //     value: "Meera Devi",
+  //     field: "mother",
+  //   },
+  //   {
+  //     id: 7,
+  //     column: "07",
+  //     name: "Mobile",
+  //     value: "1234567890",
+  //     field: "mobile",
+  //   },
+  //   {
+  //     id: 8,
+  //     column: "08",
+  //     name: "Religion",
+  //     value: "Hindu",
+  //     field: "religion",
+  //   },
+  // ];
 
   // Define coordinates once
   const coordinates = {
@@ -126,13 +146,16 @@ const StudentProfile = () => {
               <table className="min-w-full font-normal bg-white shadow-md rounded-lg overflow-hidden">
                 <thead className="bg-gray-500 border-b">
                   <tr>
-                    <th className="py-3 px-6 text-left text-sm font-medium text-white w-[15%]">
-                      Column
-                    </th>
-                    <th className="py-3 px-6 text-left text-sm font-medium text-white w-[30%]">
+                  <th className="py-2 px-6 text-left text-sm font-medium text-white w-[10%]">
+                    Sr
+                  </th>
+                  <th className="py-2 px-6 text-left text-sm font-medium text-white w-[15%]">
+                    Column
+                  </th>
+                    <th className="py-2 px-6 text-left text-sm font-medium text-white w-[30%]">
                       Name
                     </th>
-                    <th className="py-3 px-6 text-left text-sm font-medium text-white">
+                    <th className="py-2 px-6 text-left text-sm font-medium text-white">
                       Value
                     </th>
                   </tr>
@@ -144,9 +167,12 @@ const StudentProfile = () => {
                       className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
                       onDoubleClick={() => handleDoubleClick(profile.field)}
                     >
-                      <td className="py-3 px-6 text-sm font-bold text-center text-gray-700">
-                        {profile.column}
-                      </td>
+                    <td className="py-3 px-6 text-sm font-bold text-center text-gray-700">
+                      {profile.id}
+                    </td>
+                    <td className="py-3 px-6 text-sm  text-center text-gray-700">
+                      {profile.column}
+                    </td>
                       <td className="py-3 px-6 text-sm font-semibold text-gray-700">
                         <div className="flex">
                           <div className="mr-2">{profile.name}</div>
@@ -219,4 +245,4 @@ const StudentProfile = () => {
   );
 };
 
-export default StudentProfile;
+export default PendingStudentProfile;
