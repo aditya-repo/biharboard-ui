@@ -94,7 +94,6 @@ const Dashboard = () => {
                 <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">Pending</th>
                 <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">Approved</th>
                 <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">Auto</th>
-                <th className="py-3 px-6 text-left text-sm font-medium text-white w-[8%]">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -107,9 +106,7 @@ const Dashboard = () => {
                   <td className="py-2 px-6 text-sm text-gray-700">{school.studentCount}</td>
                   <td className="py-2 px-6 text-sm text-gray-700">{school.pendingCount}</td>
                   <td className="py-2 px-6 text-sm text-gray-700">{school.arrovedCount}</td>
-                  <td className="py-2 px-6 text-sm text-gray-700">{school.autoCount}</td>
-                  <td className="py-2 px-6 text-sm text-gray-700"><button className="rounded-md px-3 py-1 ring-2 ring-pink-300 ring-inset">View</button></td>
-                </tr>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.autoCount}</td></tr>
               ))}
             </tbody>
           </table>

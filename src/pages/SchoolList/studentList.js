@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams} from "react-router-dom";
 const URL = 'http://localhost:4040/'
 
-const RawStudentData = () => {
+const SchoolStudentListPage = () => {
   const [studentlist, setStudentlist] = useState([]);
-
   const {id} = useParams()
 
   useEffect(() => {
-    fetch(`${URL}school/rawstudentlist/${id}`)
+    fetch(`${URL}school/student/${id}`)
       .then((data) => data.json())
       .then((data) => setStudentlist(data))
       .catch((error) => console.error("console error", error));
 
   }, [id]);
+
 
   return (
     <div className="p-4">
@@ -56,6 +56,9 @@ const RawStudentData = () => {
                   <th className="py-3 px-6 text-left text-sm font-medium text-white w-[15%]">
                     Mobile
                   </th>
+                  <th className="py-3 px-6 text-left text-sm font-medium text-white w-[15%]">
+                    Approval
+                  </th>
                   <th className="py-3 px-6 text-left text-sm font-medium text-white w-[8%]">
                     Action
                   </th>
@@ -96,7 +99,10 @@ const RawStudentData = () => {
                       {s.phone}
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
-                      <NavLink to={`/raw-studentprofile/${s.studentuid}`}>
+                      <div style={{textTransform:"uppercase"}}>{s.approval}</div>
+                    </td>
+                    <td className="py-2 px-6 text-sm text-gray-700">
+                      <NavLink to={`/student/${s.studentuid}`}>
                         <button className="rounded-md px-3 py-1 ring-2 ring-pink-300 ring-inset">
                           View
                         </button>
@@ -113,4 +119,4 @@ const RawStudentData = () => {
   );
 };
 
-export default RawStudentData;
+export default SchoolStudentListPage;
