@@ -1,182 +1,96 @@
-import React from 'react';
-import { Page, Text, View, Document, StyleSheet, Font, Image } from '@react-pdf/renderer';
-import MyCustomFont from '../fonts/TiroDevanagariHindi-Regular.ttf';
-import Bgimg from '../assets/img/bg.png'
+import React from 'react'
 
-Font.register({
-  family: 'Tiro',
-  src: MyCustomFont
-});
+const ReportsPage = () => {
 
-console.log();
+  const schooldata = [
+    {
+      id: 1,
+      schoolcode: 52046,
+      schoolname: "High School, Halsi",
+      total: 450,
+      pending: 345,
+      approved: 94,
+      auto: 11
+    },
+    {
+      id: 2,
+      schoolcode: 52047,
+      schoolname: "Central School, Main Street",
+      total: 500,
+      pending: 200,
+      approved: 250,
+      auto: 50
+    },
+    {
+      id: 3,
+      schoolcode: 52048,
+      schoolname: "Green Valley High",
+      total: 600,
+      pending: 100,
+      approved: 450,
+      auto: 50
+    },
+    {
+      id: 4,
+      schoolcode: 52049,
+      schoolname: "Mountain View School",
+      total: 300,
+      pending: 50,
+      approved: 200,
+      auto: 50
+    },
+    {
+      id: 5,
+      schoolcode: 52050,
+      schoolname: "Riverdale High School",
+      total: 550,
+      pending: 300,
+      approved: 200,
+      auto: 50
+    }
+  ];
 
-const styles = StyleSheet.create({
-  mainblock: {
-    border: '1px solid black',
-    height: '50%'
-  },
-  page: {
-    flexDirection: 'column',
-    backgroundColor: '#E4E4E4',
-    padding: 10,
-  },
-  section: {
-    margin: 10,
-    padding: 10,
-    flexGrow: 1,
-  },
-  board: {
-    textAlign: 'center',
-    paddingTop: '8px'
-  },
-  hindiTitle: {
-    fontFamily: 'Tiro',
-    color: 'green',
-    marginBottom: '-6px',
-    fontSize: '16px'
-  },
-  englishTitle: {
-    color: 'green',
-    fontSize: "12px",
-    fontWeight: "bold",
-    paddingBottom: '6px'
-  },
-  doctype: {
-    fontFamily: 'Tiro',
-    color: 'green',
-    fontSize: '12px',
-  },
-  hindiText: {
-    fontFamily: 'Tiro',
-    color: 'black',
-    fontSize: "10px"
-  },
-  contentText: {
-    fontSize: '10px',
-    color: 'black',
-    paddingLeft: '12px',
-    paddingBottom: '14px'
-  },
-  backgroundImage: {
-    position: 'absolute',
-    width: '40px',
-    height: 'auto',
-    top: 0,
-    left: 0,
-  },
-  keys: {
-    position: 'absolute',
-    left: '12px'
-  },
-  values1: {
-    position: 'absolute',
-    left: '130px',
-    top: '-16px'
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  subjectRow:{
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingLeft: '8px',
-    paddingRight: '8px'
-  }
+  return (
+    <div className="p-4">
+      <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
+      <div className="grid grid-cols-1 gap-4">
+        <div className="p-4 shadow rounded-md border bg-gray-200 ">
+          <h3 className="text-2xl font-bold mb-3" >School Lists:</h3>
 
-});
+          <div className="overflow-x-auto">
+          <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+            <thead className="bg-gray-500 border-b">
+              <tr>
+                <th className="py-3 px-6 text-left text-sm font-medium text-white w-[5%]">ID</th>
+                <th className="py-3 px-6 text-left text-sm font-medium text-white w-[12%]">School Code</th>
+                <th className="py-3 px-6 text-left text-sm font-medium text-white">School Name</th>
+                <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">Total</th>
+                <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">Auto</th>
+                <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">Approved</th>
+                <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">Pending</th>
+                <th className="py-3 px-6 text-left text-sm font-medium text-white w-[8%]">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {schooldata.map((school, index) => (
+                <tr key={school.id} className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.id}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.schoolcode}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.schoolname}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.total}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.auto}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.approved}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.pending}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700"><button className="rounded-md px-3 py-1 ring-2 ring-pink-300 ring-inset">View</button></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-const Report = ({ data }) => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.mainblock}>
-        <View style={styles.board}>
-          <Text style={styles.hindiTitle}>{data.boardHindi}</Text>
-          <Text style={styles.englishTitle}>{data.boardEnglish}</Text>
-          <Text style={styles.doctype}>{data.doctype}</Text>
-        </View>
-        <View style={{ paddingTop: "8px" }}>
-          <View style={styles.contentText}>
-            <Text style={[styles.hindiText, styles.keys]}>{data.nameKey}</Text>
-          </View>
-          <View style={styles.contentText}>
-            <Text style={[styles.hindiText, styles.values1]}>{data.nameValue}</Text>
-          </View>
-        </View>
-        <View>
-          <View style={styles.contentText}>
-            <Text style={[styles.hindiText, styles.keys]}>{data.motherKey}</Text>
-          </View>
-          <View style={styles.contentText}>
-            <Text style={[styles.hindiText, styles.values1]}>{data.motherValue}</Text>
-          </View>
-        </View>
-        <View>
-          <View style={styles.contentText}>
-            <Text style={[styles.hindiText, styles.keys]}>{data.fatherKey}</Text>
-          </View>
-          <View style={styles.contentText}>
-            <Text style={[styles.hindiText, styles.values1]}>{data.fatherValue}</Text>
-          </View>
-        </View>
-        <View>
-          <View style={styles.contentText}>
-            <Text style={[styles.hindiText, styles.keys]}>{data.dobKey}</Text>
-          </View>
-          <View style={styles.contentText}>
-            <Text style={[styles.hindiText, styles.values1]}>{data.dobValue}</Text>
-          </View>
-        </View>
-        <View>
-          <View style={styles.contentText}>
-            <Text style={[styles.hindiText, styles.keys]}>{data.categoryKey}</Text>
-          </View>
-          <View style={styles.contentText}>
-            <Text style={[styles.hindiText, styles.values1]}>{data.categoryValue}</Text>
-          </View>
-        </View>
-        <View>
-          <View style={styles.contentText}>
-            <Text style={[styles.hindiText, styles.keys]}>{data.nationalityKey}</Text>
-          </View>
-          <View style={styles.contentText}>
-            <Text style={[styles.hindiText, styles.values1]}>{data.nationalityValue}</Text>
-          </View>
-        </View>
-        <View>
-          <View style={styles.contentText}>
-            <Text style={[styles.hindiText, styles.keys]}>{data.regKey}</Text>
-          </View>
-          <View style={styles.contentText}>
-            <Text style={[styles.hindiText, styles.values1]}>{data.regValue}</Text>
-          </View>
-        </View>
-        <View>
-          <View style={styles.contentText}>
-            <Text style={[styles.hindiText, styles.keys]}>{data.schoolKey}</Text>
-          </View>
-          <View style={styles.contentText}>
-            <Text style={[styles.hindiText, styles.values1]}>{data.schoolValue}</Text>
-          </View>
-        </View>
-        <View style={styles.subjectRow}>
-        
-        <View style={styles.testKey}>
-          <Text style={[styles.hindiText]}>{data.subject1Key}</Text>
-        </View>
-        <View style={styles.testKey}>
-          <Text style={[styles.hindiText]}>{data.subject2Key}</Text>
-        </View>
-        <View style={styles.testKey}>
-          <Text style={[styles.hindiText]}>{data.subject3Key}</Text>
-        </View>
-        <View style={styles.testKey}>
-          <Text style={[styles.hindiText]}>{data.subject4Key}</Text>
-        </View>
-        </View>
-      </View>
-    </Page>
-  </Document>
-);
-
-export default Report;
+export default ReportsPage

@@ -1,6 +1,6 @@
 {
   "name": "tailwind-react",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "private": true,
   "dependencies": {
     "@react-pdf/renderer": "^3.4.4",
