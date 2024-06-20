@@ -8,7 +8,6 @@ import Layout from './Layout';
 import Dashboard from './pages/Dashboard';
 import PendingReview from './pages/PendingReview/PendingReview';
 import PendingStudentProfile from './pages/PendingReview/StudentProfile';
-// import ReportsPage from './pages/Reports/Reg9';
 import PendingStudent from './pages/PendingReview/PendingStudent';
 import SchoolList from './pages/SchoolList/SchoolList';
 import RawDataSchoolWise from './pages/Rawdata/RawSchoolData';
@@ -17,10 +16,6 @@ import StudentListPage from './pages/StudentProfile/studentList';
 import StudentProfile from './pages/StudentProfile/StudentProfile';
 import SchoolStudentListPage from './pages/SchoolList/studentList';
 import RawdataStudentProfile from './pages/Rawdata/StudentProfile';
-// import Report from './pages/test';
-// import GeneratePdf from './pages/test2';
-// import Users from './pages/Users';
-// import DummyRegcard9 from './pages/Reports/DummyRegcard9';
 import ApplicationForm from './pages/Reports/ApplicationForm';
 
 
@@ -30,7 +25,7 @@ const router = createBrowserRouter(
       <Route path='' element={<Dashboard />} />
       <Route path='scanned-form' element={<PendingReview/>}/>
       <Route path='pending-review' element={<PendingReview/>}/>
-      <Route path='pending-review/students/:userid' element={<PendingStudentProfile />}/>
+      <Route path='pending-review/students/:id' element={<StudentProfile />}/>
       <Route path='pending-review/:id' element={<PendingStudent/>}/>
       <Route path='students' element={<StudentListPage />}/>
       <Route path='schools' element={<SchoolList />}/>

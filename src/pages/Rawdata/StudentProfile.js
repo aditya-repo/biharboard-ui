@@ -50,24 +50,24 @@ const RawdataStudentProfile = () => {
   ];
 
   // Define coordinates once
-  const coordinates = {
-    name: { x: 90, y: 195, width: 100, height: 55 },
-    gender: { x: 0, y: 100, width: 100, height: 55 },
-    category: { x: 0, y: 150, width: 100, height: 55 },
-    dob: { x: 0, y: 200, width: 800, height: 55 },
-    father: { x: 0, y: 350, width: 2400, height: 75 },
-    mother: { x: 0, y: 550, width: 100, height: 55 },
-    mobile: { x: 0, y: 350, width: 100, height: 55 },
-    religion: { x: 50, y: 400, width: 100, height: 55 },
-  };
+  // const coordinates = {
+  //   name: { x: 90, y: 195, width: 100, height: 55 },
+  //   gender: { x: 0, y: 100, width: 100, height: 55 },
+  //   category: { x: 0, y: 150, width: 100, height: 55 },
+  //   dob: { x: 0, y: 200, width: 800, height: 55 },
+  //   father: { x: 0, y: 350, width: 2400, height: 75 },
+  //   mother: { x: 0, y: 550, width: 100, height: 55 },
+  //   mobile: { x: 0, y: 350, width: 100, height: 55 },
+  //   religion: { x: 50, y: 400, width: 100, height: 55 },
+  // };
 
   const [zoomCoords, setZoomCoords] = useState(null);
 
-  const handleDoubleClick = (field) => {
-    const coords = coordinates[field];
-    setZoomCoords(coords);
-    console.log(coords);
-  };
+  // const handleDoubleClick = (field) => {
+  //   const coords = coordinates[field];
+  //   setZoomCoords(coords);
+  //   console.log(coords);
+  // };
 
   const coordinate = {
     width: zoomCoords ? `${zoomCoords.width}%` : "100%",
@@ -118,7 +118,7 @@ const RawdataStudentProfile = () => {
                     <tr
                       key={profile.id}
                       className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
-                      onDoubleClick={() => handleDoubleClick(profile.field)}
+                      // onDoubleClick={() => handleDoubleClick(profile.field)}
                     >
                     <td className="py-3 px-6 text-sm font-bold text-center text-gray-700">
                       {profile.id}
