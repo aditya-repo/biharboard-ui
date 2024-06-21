@@ -194,7 +194,7 @@ const StudentProfile = () => {
                       </td>
                       <EditableTableCell
                         key={profile.id}
-                        initialValue={profile.value}
+                        initialValue={profile.value} fieldName={profile.field} studentid={id}
                       />
                     </tr>
                   ))}

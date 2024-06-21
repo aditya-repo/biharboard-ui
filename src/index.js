@@ -7,7 +7,7 @@ import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } 
 import Layout from './Layout';
 import Dashboard from './pages/Dashboard';
 import PendingReview from './pages/PendingReview/PendingReview';
-import PendingStudentProfile from './pages/PendingReview/StudentProfile';
+// import PendingStudentProfile from './pages/PendingReview/StudentProfile';
 import PendingStudent from './pages/PendingReview/PendingStudent';
 import SchoolList from './pages/SchoolList/SchoolList';
 import RawDataSchoolWise from './pages/Rawdata/RawSchoolData';
