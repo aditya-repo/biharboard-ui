@@ -88,9 +88,10 @@ const styles = StyleSheet.create({
     bottomRight: { position: 'absolute', top: 814, right: 4, padding: 3, border: '1px solid black', borderRadius: '50%' },
 });
 
-const BarcodeImage = 'http://localhost:4040/barcode/531521.png'
+const URL = 'http://localhost:4040/barcode/'
 
-const Report = ({ data }) => (
+const Report = ({ barcodeid }) => (
+
     <Document>
         <Page size="A4" style={styles.page}>
             <View>
@@ -104,7 +105,7 @@ const Report = ({ data }) => (
                     <View style={{ position: "absolute", top: "12px", left: "24px", width: "44px" }}><Image src={Logo} /></View>
                 </View>
                 <View style={styles.upperblock}>
-                    <View style={{ position: "absolute", top: "70", left: "18px", width: '70px' }}><Image src={BarcodeImage} /></View>
+                    <View style={{ position: "absolute", top: "70", left: "18px", width: '70px' }}><Image src={`${URL}${barcodeid}.png`} /></View>
                 </View>
                 <View style={styles.board}>
                     <View style={{ height: 100, width: 76, border: "0.5px solid black", position: 'absolute', top: 40, right: 40 }}></View>
@@ -357,7 +358,9 @@ const Report = ({ data }) => (
             </View>
         </Page>
     </Document>
-);
+    )
+
+    
 const Tile = ({ piece }) => {
     const tiles = [];
     for (let col = 0; col < piece; col++) {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 const URL = 'http://localhost:4040/'
 
 const StudentListPage = () => {
@@ -13,12 +13,64 @@ const StudentListPage = () => {
 
   }, []);
 
+  const [approval, setApproval] = useState("none")
+  const [formtype, setFormType] = useState("none")
+
+  const approvalData = (event) => {
+    const selectedOption = event.target.value
+      setApproval(selectedOption)
+    if (selectedOption === 'none') {
+      fetch(`${URL}student`).then(data => data.json()).then(data => setStudentlist(data))
+        .catch((error) => console.error("console error", error));
+    }
+    setApproval(selectedOption)
+    if (formtype !== 'none') {
+      fetch(`${URL}student/approvalformtype/${selectedOption}/${formtype}`).then(data => data.json()).then(data => setStudentlist(data))
+        .catch((error) => console.error("console error", error));
+    }
+    fetch(`${URL}student/approval/${selectedOption}`).then(data => data.json()).then(data => setStudentlist(data))
+      .catch((error) => console.error("console error", error));
+  }
+
+  const formTypeData = (event) => {
+    const selectedOption = event.target.value
+      setFormType(selectedOption)
+    if (selectedOption === 'none') {
+      fetch(`${URL}student`).then(data => data.json()).then(data => setStudentlist(data))
+        .catch((error) => console.error("console error", error));
+    }
+    setFormType(selectedOption)
+    if (approval !== 'none') {
+      fetch(`${URL}student/approvalformtype/${approval}/${selectedOption}`).then(data => data.json()).then(data => setStudentlist(data))
+        .catch((error) => console.error("console error", error));
+    }
+    fetch(`${URL}student/formtype/${selectedOption}`).then(data => data.json()).then(data => setStudentlist(data))
+      .catch((error) => console.error("console error", error));
+  }
+
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
       <div className="grid grid-cols-1 gap-4">
         <div className="p-4 shadow rounded-md border bg-gray-200 ">
-          <h3 className="text-2xl font-bold mb-3">Student Lists:</h3>
+          <div className="flex justify-between items-center mb-2">
+            <h3 className="text-2xl font-bold">Student Lists:</h3>
+            <form class="max-w-sm flex">
+              <select value={approval} onChange={approvalData} id="countries" class="bg-gray-50 mr-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value={'none'}>All Approval --</option>
+                <option value={'true'}>Approved</option>
+                <option value={'auto'}>Auto Approved</option>
+                <option value={'false'}>Pending</option>
+              </select>
+              <select value={formtype} onChange={formTypeData} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value={'none'}>All Form --</option>
+                <option value={'9th'}>9th Registation</option>
+                <option value={'10th'}>10th Examination</option>
+                <option value={'11th'}>11th Registation</option>
+                <option value={'12th'}>12th Examination</option>
+              </select>
+            </form>
+          </div>
 
           <div className="overflow-x-auto">
             <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
@@ -68,7 +120,7 @@ const StudentListPage = () => {
                     key={s.id}
                     className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
                   >
-                    <td className="py-2 px-6 text-sm text-gray-700">{index+1}</td>
+                    <td className="py-2 px-6 text-sm text-gray-700">{index + 1}</td>
                     <td className="py-2 px-6 text-sm text-gray-700">
                       {s.studentuid}
                     </td>
@@ -97,7 +149,7 @@ const StudentListPage = () => {
                       {s.phone}
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
-                      <div style={{textTransform:"uppercase"}}>{s.approval}</div>
+                      <div style={{ textTransform: "uppercase" }}>{s.approval}</div>
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
                       <NavLink to={`/student/${s.studentuid}`}>

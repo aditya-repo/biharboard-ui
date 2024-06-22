@@ -5,19 +5,38 @@ const URL = 'http://localhost:4040/'
 const RawDataSchoolWise = () => {
   const [schoollistTrue, setSchoollistTrue] = useState([]);
   const [schoollistFalse, setSchoollistFalse] = useState([]);
+  const [importStatus, setImportStatus] = useState(false)
 
   useEffect(() => {
     fetch(`${URL}school/rawschoollist`)
       .then((data) => data.json())
       .then((data) => setSchoollistTrue(data))
       .catch((error) => console.error("console error", error));
-  }, []);
+  }, [importStatus]);
   useEffect(() => {
     fetch(`${URL}school/rawschoollistfalse`)
       .then((data) => data.json())
       .then((data) => setSchoollistFalse(data))
       .catch((error) => console.error("console error", error));
-  }, []);
+  }, [importStatus]);
+
+  const importing = () => {
+    console.log("Importing data...");
+    setImportStatus(true); // Set importStatus to true immediately
+
+    fetch(`${URL}school/import`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Import successful");
+        // Optionally handle response data if needed
+      })
+      .catch((error) => console.error("Error importing data:", error))
+      .finally(() => {
+        // Reset importStatus after completion if needed
+        setImportStatus(false); // Reset importStatus to false after fetch completes
+      });
+  };
+
 
   return (
     <div className="p-4">
@@ -25,8 +44,8 @@ const RawDataSchoolWise = () => {
       <div className="grid grid-cols-1 gap-4 mb-5">
         <div className="p-4 shadow rounded-md border bg-gray-200 ">
         <div className="flex justify-between align-items-center items-center">
-            <h3 className="text-2xl font-bold mb-3">Raw Scanned Form Data (Non Imported):</h3>
-            <button className="rounded-md py-1 ring-2 ring-pink-300 ring-inset bg-pink-400 px-4">Import All</button>
+            <h3 className="text-2xl font-bold mb-3">Raw Scanned Form Data (Non Imported):</h3>{importStatus ? <button className="rounded-md py-1 ring-2 ring-red-300 ring-inset bg-red-400 px-4" disabled>Importing...</button> : <button className="rounded-md py-1 ring-2 ring-green-300 ring-inset bg-green-400 px-4" onClick={()=>importing()}>Import All</button>}
+            
         </div>
 
           <div className="overflow-x-auto">

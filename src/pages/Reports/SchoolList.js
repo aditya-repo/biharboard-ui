@@ -1,33 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useParams, useNavigate } from "react-router-dom";
-const URL = 'http://localhost:4040/'
+import { NavLink } from "react-router-dom";
 
-const PendingStudent = () => {
-  const [studentlist, setStudentlist] = useState([]);
-
-  const navigate = useNavigate();
-  const {id} = useParams()
+const ReportSchoolList = () => {
+  const [schoollist, setSchoollist] = useState([]);
 
   useEffect(() => {
-    fetch(`${URL}school/pendingstudentlist/${id}`)
+    fetch("http://localhost:4040/school")
       .then((data) => data.json())
-      .then((data) => setStudentlist(data))
+      .then((data) => setSchoollist(data))
       .catch((error) => console.error("console error", error));
+  }, []);
 
-  }, [id]);
-
-      console.log(studentlist);
+  console.log(schoollist);
+  // Logging the array to verify the output
 
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
       <div className="grid grid-cols-1 gap-4">
+      </div>
+      <div className="grid grid-cols-1 gap-4">
         <div className="p-4 shadow rounded-md border bg-gray-200 ">
-        <div className="flex justify-between items-center">
-        
-          <h3 className="text-2xl font-bold mb-3">Student Lists:</h3>
-          <button className="rounded-md py-1 ring-2 ring-red-300 ring-inset bg-red-800 px-4 text-white"  onClick={() => navigate(-1)}>Back</button> 
-          </div>
+          <h3 className="text-2xl font-bold mb-3">School Lists:</h3>
 
           <div className="overflow-x-auto">
             <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
@@ -36,74 +30,82 @@ const PendingStudent = () => {
                   <th className="py-3 px-6 text-left text-sm font-medium text-white w-[5%]">
                     ID
                   </th>
-                  <th className="py-3 px-6 text-left text-sm font-medium text-white w-[8%]">
-                    Student Id
-                  </th>
-                  <th className="py-3 px-6 text-left text-sm font-medium text-white w-[8%]">
-                    Form
-                  </th>
-                  <th className="py-3 px-6 text-left text-sm font-medium text-white w-[20%]">
-                    Name
-                  </th>
                   <th className="py-3 px-6 text-left text-sm font-medium text-white w-[12%]">
-                    Gender
+                    School Code
+                  </th>
+                  <th className="py-3 px-6 text-left text-sm font-medium text-white">
+                    School Name
                   </th>
                   <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">
-                    Caste
+                    Contact
                   </th>
                   <th className="py-3 px-6 text-left text-sm font-medium text-white w-[15%]">
-                    Father
+                    Principal
                   </th>
-                  <th className="py-3 px-6 text-left text-sm font-medium text-white w-[15%]">
-                    Mother
-                  </th>
-                  <th className="py-3 px-6 text-left text-sm font-medium text-white w-[15%]">
-                    Adhaar
-                  </th>
-                  <th className="py-3 px-6 text-left text-sm font-medium text-white w-[15%]">
-                    Mobile
+                  <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">
+                    District
                   </th>
                   <th className="py-3 px-6 text-left text-sm font-medium text-white w-[8%]">
-                    Action
+                    9th Reg
+                  </th>
+                  <th className="py-3 px-6 text-left text-sm font-medium text-white w-[8%]">
+                    10th Exam
+                  </th>
+                  <th className="py-3 px-6 text-left text-sm font-medium text-white w-[8%]">
+                    11th Reg
+                  </th>
+                  <th className="py-3 px-6 text-left text-sm font-medium text-white w-[8%]">
+                    12 Exam
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {studentlist.map((s, index) => (
+                {schoollist.map((school, index) => (
                   <tr
-                    key={s.id}
+                    key={school.id}
                     className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
                   >
-                    <td className="py-2 px-6 text-sm text-gray-700">{index+1}</td>
                     <td className="py-2 px-6 text-sm text-gray-700">
-                      {s.studentuid}
+                      {index + 1}
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
-                      {s.formtype}
+                      {school.schoolcode}
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
-                      {s.name}
+                      {school.schoolname}
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
-                      {s.gender}
+                      {school.mobile}
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
-                      {s.caste}
+                      {school.principal}
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
-                      {s.father}
+                      {school.district}
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
-                      {s.mother}
+                      <NavLink to={`/report/reg/${school.schoolcode}1`}>
+                        <button className="rounded-md px-3 py-1 ring-2 ring-pink-300 ring-inset">
+                          View
+                        </button>
+                      </NavLink>
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
-                      {s.adhaar}
+                      <NavLink to={`/report/reg/${school.schoolcode}2`}>
+                        <button className="rounded-md px-3 py-1 ring-2 ring-pink-300 ring-inset">
+                          View
+                        </button>
+                      </NavLink>
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
-                      {s.phone}
+                      <NavLink to={`/report/reg/${school.schoolcode}3`}>
+                        <button className="rounded-md px-3 py-1 ring-2 ring-pink-300 ring-inset">
+                          View
+                        </button>
+                      </NavLink>
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
-                      <NavLink to={`/pending-review/students/${s.studentuid}`}>
+                      <NavLink to={`/report/reg/${school.schoolcode}4`}>
                         <button className="rounded-md px-3 py-1 ring-2 ring-pink-300 ring-inset">
                           View
                         </button>
@@ -120,4 +122,4 @@ const PendingStudent = () => {
   );
 };
 
-export default PendingStudent;
+export default ReportSchoolList;

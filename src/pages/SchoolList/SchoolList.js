@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import SchoolInputForm from "../../components/school-input";
 
 const SchoolList = () => {
   const [schoollist, setSchoollist] = useState([]);
@@ -17,6 +18,8 @@ const SchoolList = () => {
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
+      <div className="grid grid-cols-1 gap-4">
+      </div>
       <div className="grid grid-cols-1 gap-4">
         <div className="p-4 shadow rounded-md border bg-gray-200 ">
           <h3 className="text-2xl font-bold mb-3">School Lists:</h3>
@@ -42,12 +45,6 @@ const SchoolList = () => {
                   </th>
                   <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">
                     Contact
-                  </th>
-                  <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">
-                    Matriculation
-                  </th>
-                  <th className="py-3 px-6 text-left text-sm font-medium text-white w-[10%]">
-                    Intermediate
                   </th>
                   <th className="py-3 px-6 text-left text-sm font-medium text-white w-[8%]">
                     Action
@@ -77,12 +74,6 @@ const SchoolList = () => {
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
                       {school.mobile}
-                    </td>
-                    <td className="py-2 px-6 text-sm text-gray-700">
-                      {school.matric}
-                    </td>
-                    <td className="py-2 px-6 text-sm text-gray-700">
-                      {school.inter}
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
                       <NavLink to={`/school/student/${school.schoolcode}`}>

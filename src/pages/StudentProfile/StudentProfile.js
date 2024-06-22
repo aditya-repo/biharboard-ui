@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import FormImage1 from "../../assets/img/form1.jpeg";
+import FormImage1 from "../../assets/img/form1.png";
+import FormImage2 from "../../assets/img/form2.png";
 // import FormImage2 from '../assets/img/form2.jpeg'
 import Photo from "../../assets/img/photo.jpg";
 import EditableTableCell from "../../components/EditTableCell";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import mapStudentData from "../../util/mapstudentData";
 // import Hindi from '../assets/img/hindi.jpg'
 // import English from '../assets/img/english.jpg'
@@ -17,6 +18,8 @@ const StudentProfile = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const { id } = useParams();
   const [profiledata, setProfiledata] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,53 +52,6 @@ const StudentProfile = () => {
     { id: 6, name: "Item 6", imgSrc: "https://via.placeholder.com/150" },
   ];
 
-  // const profiledata = [
-  //   { id: 1, column: "01", name: "Name", value: "Aditya Raj", field: "name" },
-  //   { id: 2, column: "02", name: "Gender", value: "Male", field: "gender" },
-  //   {
-  //     id: 3,
-  //     column: "03",
-  //     name: "Category",
-  //     value: "General",
-  //     field: "category",
-  //   },
-  //   {
-  //     id: 4,
-  //     column: "04",
-  //     name: "Date Of Birth",
-  //     value: "1990-01-01",
-  //     field: "dob",
-  //   },
-  //   {
-  //     id: 5,
-  //     column: "05",
-  //     name: "Father",
-  //     value: "Raj Kumar",
-  //     field: "father",
-  //   },
-  //   {
-  //     id: 6,
-  //     column: "06",
-  //     name: "Mother",
-  //     value: "Meera Devi",
-  //     field: "mother",
-  //   },
-  //   {
-  //     id: 7,
-  //     column: "07",
-  //     name: "Mobile",
-  //     value: "1234567890",
-  //     field: "mobile",
-  //   },
-  //   {
-  //     id: 8,
-  //     column: "08",
-  //     name: "Religion",
-  //     value: "Hindu",
-  //     field: "religion",
-  //   },
-  // ];
-
   // Define coordinates once
   const coordinates = {
     name: { x: 90, y: 195, width: 100, height: 55 },
@@ -125,22 +81,81 @@ const StudentProfile = () => {
       : "0px - 0px",
   };
 
+  const [isActive, setIsActive] = useState(false);
+  const toggleCheckbox = () => {
+    setIsActive(!isActive); // Toggle isActive state
+  };
+
+  // Approve Student
+  const [approval, setApproval] = useState(false)
+
+  const handleApprove = ()=>{
+    const data = {
+      approval: "true",
+      manualapproval : true
+    }
+      setApproval(true)
+    saveData(`${URL}student/${id}`,data)
+    setTimeout(() => {
+      setApproval(false)
+    }, 300);
+  }
+
+  const saveData = async (url, data) => {
+    try {
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+  
+      const responseData = await response.json();
+      return responseData;
+    } catch (error) {
+      console.error('Error saving data:', error);
+      throw error;
+    }
+}
+
   return (
     <div className="p-4">
+    <div className="flex justify-between items-center">
       <h2 className="text-2xl font-bold mb-4">Student Profile</h2>
+
+      <button className="rounded-md py-1 ring-2 ring-red-300 ring-inset bg-red-800 px-4 text-white"  onClick={() => navigate(-1)}>Go Back</button> 
+     </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mb-4">
         <div className="p-4 font-bold shadow rounded-md border bg-gray-100">
           <div className="p-4 shadow rounded-md border bg-gray-200 ">
+            <div className="flex justify-between">
             <h3 className="text-2xl">Scanned Form</h3>
+            <label class="inline-flex items-center cursor-pointer">
+              <input  type="checkbox"
+                      checked={isActive}
+                      onChange={toggleCheckbox} class="sr-only peer" />
+              <span class="ms-3 text-sm font-medium pr-3">Page 1</span>
+              <div class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+              <span class="ms-3 text-sm font-medium">Page 2</span>
+            </label>
+            </div>
             <div className="overflow-x-auto"></div>
           </div>
           <div className="relative">
-            <img src={FormImage1} style={coordinate} alt="Scanned Documents" />
+            <img src={isActive? FormImage2: FormImage1} style={coordinate} alt="Scanned Documents" />
           </div>
         </div>
         <div className="p-4 font-bold  shadow rounded-md border bg-gray-100 text-normal">
           <div className="p-4 shadow rounded-md border bg-gray-200 ">
-            <h3 className="text-2xl font-normal mb-3">Student Form Data</h3>
+          <div className="flex justify-between items-center mb-3">
+            <h3 className="text-2xl font-normal">Student Form Data</h3>
+            <button className="rounded-md py-1 ring-2 ring-red-300 ring-inset bg-red-400 px-4" onClick={handleApprove}>{ approval ? "Approving...": "Approve"}</button> 
+          </div>
 
             <div className="overflow-x-auto">
               <table className="min-w-full font-normal bg-white shadow-md rounded-lg overflow-hidden">

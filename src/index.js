@@ -17,6 +17,7 @@ import StudentProfile from './pages/StudentProfile/StudentProfile';
 import SchoolStudentListPage from './pages/SchoolList/studentList';
 import RawdataStudentProfile from './pages/Rawdata/StudentProfile';
 import ApplicationForm from './pages/Reports/ApplicationForm';
+import ReportSchoolList from './pages/Reports/SchoolList';
 
 
 const router = createBrowserRouter(
@@ -31,7 +32,8 @@ const router = createBrowserRouter(
       <Route path='schools' element={<SchoolList />}/>
       <Route path='school/student/:id' element={<SchoolStudentListPage />}/>
       <Route path='student/:id' element={<StudentProfile />}/>
-      <Route path='reports' element={<ApplicationForm />}/>
+      <Route path='reports' element={<ReportSchoolList />}/>
+      <Route path='report/reg/:id' element={<ApplicationForm />}/>
       <Route path='raw-schoollist' element={<RawDataSchoolWise />}/>
       <Route path='raw-studentlist/:id' element={<RawStudentData />}/>
       <Route path='raw-studentprofile/:id' element={<RawdataStudentProfile />}/>
