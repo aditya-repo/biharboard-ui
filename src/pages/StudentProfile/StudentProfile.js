@@ -18,6 +18,7 @@ const StudentProfile = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const { id } = useParams();
   const [profiledata, setProfiledata] = useState([]);
+  const [rawdata, setRawdata] = useState([]);
 
   const navigate = useNavigate();
 
@@ -25,6 +26,8 @@ const StudentProfile = () => {
     const fetchData = async () => {
       const response = await fetch(`${URL}student/${id}`);
       const data = await response.json();
+      setRawdata(data)
+      console.log(rawdata);
       const result = mapStudentData(data)
       setProfiledata(result);
     };
@@ -156,6 +159,15 @@ const StudentProfile = () => {
             <h3 className="text-2xl font-normal">Student Form Data</h3>
             <button className="rounded-md py-1 ring-2 ring-red-300 ring-inset bg-red-400 px-4" onClick={handleApprove}>{ approval ? "Approving...": "Approve"}</button> 
           </div>
+          {console.log(rawdata)}
+          {rawdata.correction.length > 0 ? (
+            <p>
+              Correction Data: 
+              {rawdata.correction.map((display, index) => (
+                <span key={index}>{display}</span>
+              ))}
+            </p>
+          ) : ''}
 
             <div className="overflow-x-auto">
               <table className="min-w-full font-normal bg-white shadow-md rounded-lg overflow-hidden">
@@ -191,20 +203,21 @@ const StudentProfile = () => {
                       <td className="py-3 px-6 text-sm font-semibold text-gray-700">
                         <div className="flex">
                           <div className="mr-2">{profile.name}</div>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 30 30"
-                            stroke-width="1"
-                            stroke="red"
-                            class="size-6"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z"
-                            />
-                          </svg>
+                          {(rawdata.correction.includes(profile.field)) ? (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 30 30"
+                              stroke-width="1"
+                              stroke="red"
+                              class="size-6"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z"
+                              />
+                            </svg>): ''}
                         </div>
                       </td>
                       <EditableTableCell

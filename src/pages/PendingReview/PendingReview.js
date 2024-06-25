@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 const URL = 'http://localhost:4040/'
 
 const PendingReview = () => {
 
+  const navigate = useNavigate();
   const [studentlist, setStudentlist] = useState([]);
 
   useEffect(() => {
@@ -15,11 +16,14 @@ const PendingReview = () => {
   
   return (
     <div className="p-4">
+      <div className="flex justify-between items-center">
+      
       <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
+        <button className="rounded-md py-1 ring-2 ring-red-300 ring-inset bg-red-800 px-4 text-white"  onClick={() => navigate(-1)}>Go Back</button> 
+        </div>
       <div className="grid grid-cols-1 gap-4">
-        <div className="p-4 shadow rounded-md border bg-gray-200 ">
-          <h3 className="text-2xl font-bold mb-3" >School Lists:</h3>
-
+        <div className="p-4 shadow rounded-md border bg-gray-200 ">      
+          <h3 className="text-2xl font-bold mb-3">School Lists:</h3>
           <div className="overflow-x-auto">
           <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
             <thead className="bg-gray-500 border-b">

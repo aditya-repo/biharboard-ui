@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 const URL = 'http://localhost:4040/'
 
 const StudentListPage = () => {
   const [studentlist, setStudentlist] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetch(`${URL}student`)
@@ -18,7 +19,7 @@ const StudentListPage = () => {
 
   const approvalData = (event) => {
     const selectedOption = event.target.value
-      setApproval(selectedOption)
+    setApproval(selectedOption)
     if (selectedOption === 'none') {
       fetch(`${URL}student`).then(data => data.json()).then(data => setStudentlist(data))
         .catch((error) => console.error("console error", error));
@@ -34,7 +35,7 @@ const StudentListPage = () => {
 
   const formTypeData = (event) => {
     const selectedOption = event.target.value
-      setFormType(selectedOption)
+    setFormType(selectedOption)
     if (selectedOption === 'none') {
       fetch(`${URL}student`).then(data => data.json()).then(data => setStudentlist(data))
         .catch((error) => console.error("console error", error));
@@ -50,7 +51,10 @@ const StudentListPage = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
+        <button className="rounded-md py-1 ring-2 ring-red-300 ring-inset bg-red-800 px-4 text-white" onClick={() => navigate(-1)}>Go Back</button>
+      </div>
       <div className="grid grid-cols-1 gap-4">
         <div className="p-4 shadow rounded-md border bg-gray-200 ">
           <div className="flex justify-between items-center mb-2">

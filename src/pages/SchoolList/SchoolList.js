@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import SchoolInputForm from "../../components/school-input";
 
 const SchoolList = () => {
   const [schoollist, setSchoollist] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetch("http://localhost:4040/school")
@@ -17,7 +18,10 @@ const SchoolList = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
+        <button className="rounded-md py-1 ring-2 ring-red-300 ring-inset bg-red-800 px-4 text-white" onClick={() => navigate(-1)}>Go Back</button>
+      </div>
       <div className="grid grid-cols-1 gap-4">
       </div>
       <div className="grid grid-cols-1 gap-4">
