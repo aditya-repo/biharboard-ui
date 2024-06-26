@@ -9,7 +9,6 @@ const Dashboard = () => {
   const [rawdata, setRawdata] = useState(0)
   const [student, setStudent] = useState({})
 
-  console.log(BASEURL);
 
   const data = [
     { id: 1, title: "Total School", value: schooldata.length },
@@ -55,6 +54,8 @@ const Dashboard = () => {
     }
   ];
 
+
+  // console.log(student);
 
   useEffect(()=>{
     fetch(`${BASEURL}school/student-count`).then(response => response.json()).then(data => setSchooldata(data)).catch(error=> console.log('Console error'))
@@ -103,10 +104,10 @@ const Dashboard = () => {
                   <td className="py-2 px-6 text-sm text-gray-700">{school.schoolcode}</td>
                   <td className="py-2 px-6 text-sm text-gray-700">{school.schoolname}</td>
                   <td className="py-2 px-6 text-sm text-gray-700">{school.mobile}</td>
-                  <td className="py-2 px-6 text-sm text-gray-700">{school.studentCount}</td>
-                  <td className="py-2 px-6 text-sm text-gray-700">{school.pendingCount}</td>
-                  <td className="py-2 px-6 text-sm text-gray-700">{school.arrovedCount}</td>
-                  <td className="py-2 px-6 text-sm text-gray-700">{school.autoCount}</td></tr>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.totalStudents ? school.totalStudents: 0}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.approvalCounts.false ? school.approvalCounts.false: 0}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.approvalCounts.true ? school.approvalCounts.true: 0}</td>
+                  <td className="py-2 px-6 text-sm text-gray-700">{school.approvalCounts.auto ? school.approvalCounts.auto : 0}</td></tr>
               ))}
             </tbody>
           </table>

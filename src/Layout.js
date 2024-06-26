@@ -5,9 +5,13 @@ import { Outlet } from 'react-router-dom'
 
 const Layout = () => {
     return (
-        <div className='flex'>
-            <Sidebar />
-            <div className="flex-1 flex flex-col">
+        <div class="flex h-screen">
+            <div class="bg-gray-800 w-64 h-screen fixed">
+                <Sidebar />
+
+            </div>
+
+            <div class="flex-1 ml-64 overflow-y-auto">
                 <Header />
                 <Outlet />
             </div>

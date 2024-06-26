@@ -7,7 +7,7 @@ import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } 
 import Layout from './Layout';
 import Dashboard from './pages/Dashboard';
 import PendingReview from './pages/PendingReview/PendingReview';
-// import PendingStudentProfile from './pages/PendingReview/StudentProfile';
+import PendingStudentProfile from './pages/PendingReview/StudentProfile';
 import PendingStudent from './pages/PendingReview/PendingStudent';
 import SchoolList from './pages/SchoolList/SchoolList';
 import RawDataSchoolWise from './pages/Rawdata/RawSchoolData';
@@ -26,7 +26,7 @@ const router = createBrowserRouter(
       <Route path='' element={<Dashboard />} />
       <Route path='scanned-form' element={<PendingReview/>}/>
       <Route path='pending-review' element={<PendingReview/>}/>
-      <Route path='pending-review/students/:id' element={<StudentProfile />}/>
+      <Route path='pending-review/students/:id' element={<PendingStudentProfile />}/>
       <Route path='pending-review/:id' element={<PendingStudent/>}/>
       <Route path='students' element={<StudentListPage />}/>
       <Route path='schools' element={<SchoolList />}/>

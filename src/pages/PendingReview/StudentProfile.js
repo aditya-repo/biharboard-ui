@@ -13,7 +13,7 @@ import mapStudentData from "../../util/mapstudentData";
 const URL = 'http://localhost:4040/'
 
 
-const StudentProfile = () => {
+const PendingStudentProfile = () => {
   // For image
   const [selectedImage, setSelectedImage] = useState(null);
   const { id } = useParams();
@@ -180,12 +180,13 @@ const StudentProfile = () => {
                       Name
                     </th>
                     <th className="py-2 px-6 text-left text-sm font-medium text-white">
-                      Value
+                      Values
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {profiledata.map((profile, index) => (
+                    (rawdata.includes(profile.field)? (
                     <tr
                       key={profile.id}
                       className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
@@ -223,7 +224,7 @@ const StudentProfile = () => {
                         studentId={id}
                         shortcut={profile.shortcut}
                       />
-                    </tr>
+                    </tr>):'')
                   ))}
                 </tbody>
               </table>
@@ -272,4 +273,4 @@ const StudentProfile = () => {
   );
 };
 
-export default StudentProfile;
+export default PendingStudentProfile;

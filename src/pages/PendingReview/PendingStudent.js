@@ -37,7 +37,7 @@ const PendingStudent = () => {
                   <th className="py-3 px-6 text-left text-sm font-medium text-white w-[5%]">
                     ID
                   </th>
-                  <th className="py-3 px-6 text-left text-sm font-medium text-white w-[8%]">
+                  <th className="py-3 px-6 text-left text-sm font-medium text-white w-[12%]">
                     Student Id
                   </th>
                   <th className="py-3 px-6 text-left text-sm font-medium text-white w-[8%]">
@@ -64,7 +64,7 @@ const PendingStudent = () => {
                   <th className="py-3 px-6 text-left text-sm font-medium text-white w-[15%]">
                     Mobile
                   </th>
-                  <th className="py-3 px-6 text-left text-sm font-medium text-white w-[8%]">
+                  <th className="py-3 px-6 text-left text-sm font-medium text-center text-white w-[8%]" colSpan={2}>
                     Action
                   </th>
                 </tr>
@@ -103,10 +103,17 @@ const PendingStudent = () => {
                     <td className="py-2 px-6 text-sm text-gray-700">
                       {s.phone}
                     </td>
-                    <td className="py-2 px-6 text-sm text-gray-700">
+                    <td className="py-2 pl-6 pr-2 text-sm text-gray-700">
                       <NavLink to={`/pending-review/students/${s.studentuid}`}>
                         <button className="rounded-md px-3 py-1 ring-2 ring-pink-300 ring-inset">
-                          View
+                          Partial
+                        </button>
+                      </NavLink>
+                    </td>
+                    <td className="py-2 pr-6 pl-2 text-sm text-gray-700">
+                      <NavLink to={`/student/${s.studentuid}`}>
+                        <button className="rounded-md px-3 py-1 ring-2 ring-pink-300 ring-inset">
+                          Full
                         </button>
                       </NavLink>
                     </td>

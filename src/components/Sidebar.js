@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from '../assets/img/logo.png'
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink,  } from 'react-router-dom';
 
 const Sidebar = () => {
+
+const URL = 'http://localhost:4040/'
+    const [student, setStudent] = useState(0)
+  useEffect(()=>{
+    fetch(`${URL}dashboard/student`).then(response => response.json()).then(data => setStudent(data.pending)).catch(error=> console.log('Console error'))
+    console.log(student);
+  })
+
+  console.log(student);
     return (
         <div className="h-screen w-64 bg-gray-800 text-white">
             <div className="pt-6 px-4">
@@ -40,7 +49,7 @@ const Sidebar = () => {
                             </svg>
                             <div className='px-2 flex justify-between' style={{ width: "100%" }}>
                                 <span>Pending Review</span>
-                                <span class="bg-[#db2727] px-2 rounded-full">4</span>
+                                <span class="bg-[#db2727] px-2 rounded-full">{student}</span>
                             </div>
                         </div>
                     </li>
