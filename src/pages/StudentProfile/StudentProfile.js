@@ -10,8 +10,7 @@ import mapStudentData from "../../util/mapstudentData";
 // import English from '../assets/img/english.jpg'
 // import Parent from '../assets/img/sign.jpg'
 
-const URL = 'http://localhost:4040/'
-
+const URL = "http://localhost:4040/";
 
 const StudentProfile = () => {
   // For image
@@ -26,16 +25,15 @@ const StudentProfile = () => {
     const fetchData = async () => {
       const response = await fetch(`${URL}student/${id}`);
       const data = await response.json();
-      const result = mapStudentData(data)
+      const result = mapStudentData(data);
       setProfiledata(result);
-      setRawdata(data.correction)
+      setRawdata(data.correction);
     };
 
     fetchData();
   }, []);
 
   // console.log(`${URL}student/${id}`);
-
 
   const handleClick = (imgSrc) => {
     setSelectedImage(imgSrc);
@@ -89,26 +87,31 @@ const StudentProfile = () => {
   };
 
   // Approve Student
-  const [approval, setApproval] = useState(false)
+  const [approval, setApproval] = useState(false);
 
   const handleApprove = () => {
     const data = {
       approval: "true",
-      manualapproval: true
-    }
-    setApproval(true)
-    saveData(`${URL}student/${id}`, data)
+      manualapproval: true,
+    };
+    setApproval(true);
+    saveData(`${URL}student/${id}`, data);
     setTimeout(() => {
-      setApproval(false)
+      setApproval(false);
     }, 150);
-  }
+  };
+
+  const form = "http://localhost:4040/form";
+
+  console.log(`${form}/${id}b.PNG`);
+  console.log(id);
 
   const saveData = async (url, data) => {
     try {
       const response = await fetch(url, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
@@ -120,17 +123,22 @@ const StudentProfile = () => {
       const responseData = await response.json();
       return responseData;
     } catch (error) {
-      console.error('Error saving data:', error);
+      console.error("Error saving data:", error);
       throw error;
     }
-  }
+  };
 
   return (
     <div className="p-4">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold mb-4">Student Profile</h2>
 
-        <button className="rounded-md py-1 ring-2 ring-red-300 ring-inset bg-red-800 px-4 text-white" onClick={() => navigate(-1)}>Go Back</button>
+        <button
+          className="rounded-md py-1 ring-2 ring-red-300 ring-inset bg-red-800 px-4 text-white"
+          onClick={() => navigate(-1)}
+        >
+          Go Back
+        </button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mb-4">
         <div className="p-4 font-bold shadow rounded-md border bg-gray-100">
@@ -138,9 +146,12 @@ const StudentProfile = () => {
             <div className="flex justify-between">
               <h3 className="text-2xl">Scanned Form</h3>
               <label class="inline-flex items-center cursor-pointer">
-                <input type="checkbox"
+                <input
+                  type="checkbox"
                   checked={isActive}
-                  onChange={toggleCheckbox} class="sr-only peer" />
+                  onChange={toggleCheckbox}
+                  class="sr-only peer"
+                />
                 <span class="ms-3 text-sm font-medium pr-3">Page 1</span>
                 <div class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                 <span class="ms-3 text-sm font-medium">Page 2</span>
@@ -149,23 +160,45 @@ const StudentProfile = () => {
             <div className="overflow-x-auto"></div>
           </div>
           <div className="relative">
-            <img src={isActive ? FormImage2 : FormImage1} style={coordinate} alt="Scanned Documents" />
+            <img
+              src={isActive ? `${form}/${id}b.PNG` : `${form}/${id}f.PNG`}
+              style={coordinate}
+              alt="Scanned Documents"
+            />
+            <img
+              src={`${form}/${id}b.PNG`}
+              style={coordinate}
+              alt="Scanned Documents"
+            />
           </div>
         </div>
         <div className="p-4 font-bold  shadow rounded-md border bg-gray-100 text-normal">
           <div className="p-4 shadow rounded-md border bg-gray-200 ">
             <div className="flex justify-between items-center mb-3">
               <h3 className="text-2xl font-normal">Student Form Data</h3>
-              <button className="rounded-md py-1 ring-2 ring-red-300 ring-inset bg-red-400 px-4" onClick={handleApprove}>{approval ? "Approving..." : "Approve"}</button>
+              <button
+                className="rounded-md py-1 ring-2 ring-red-300 ring-inset bg-red-400 px-4"
+                onClick={handleApprove}
+              >
+                {approval ? "Approving..." : "Approve"}
+              </button>
             </div>
             {rawdata.length > 0 ? (
               <p>
                 Correction Data: [
                 {rawdata.map((display, index) => (
-                  <span key={index} style={{ textTransform: 'uppercase', color: 'red' }}>- {display} - </span>
+                  <span
+                    key={index}
+                    style={{ textTransform: "uppercase", color: "red" }}
+                  >
+                    - {display} -{" "}
+                  </span>
                 ))}
-                ]</p>
-            ) : ''}
+                ]
+              </p>
+            ) : (
+              ""
+            )}
             <div className="overflow-x-auto">
               <table className="min-w-full font-normal bg-white shadow-md rounded-lg overflow-hidden">
                 <thead className="bg-gray-500 border-b">
@@ -199,7 +232,7 @@ const StudentProfile = () => {
                       <td className="py-3 px-6 text-sm font-semibold text-gray-700">
                         <div className="flex">
                           <div className="mr-2">{profile.name}</div>
-                          {(rawdata.includes(profile.field)) ? (
+                          {rawdata.includes(profile.field) ? (
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"
@@ -213,7 +246,10 @@ const StudentProfile = () => {
                                 stroke-linejoin="round"
                                 d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z"
                               />
-                            </svg>) : ''}
+                            </svg>
+                          ) : (
+                            ""
+                          )}
                         </div>
                       </td>
                       <EditableTableCell

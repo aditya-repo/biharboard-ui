@@ -1,33 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useParams, useNavigate } from "react-router-dom";
-const URL = 'http://localhost:4040/'
+const URL = "http://localhost:4040/";
 
 const PendingStudent = () => {
   const [studentlist, setStudentlist] = useState([]);
 
   const navigate = useNavigate();
-  const {id} = useParams()
+  const { id } = useParams();
 
   useEffect(() => {
     fetch(`${URL}school/pendingstudentlist/${id}`)
       .then((data) => data.json())
       .then((data) => setStudentlist(data))
       .catch((error) => console.error("console error", error));
-
   }, [id]);
 
-      console.log(studentlist);
+  console.log(studentlist);
 
   return (
     <div className="p-4">
       <div className="flex justify-between items-center">
-      
-      <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
-        <button className="rounded-md py-1 ring-2 ring-red-300 ring-inset bg-red-800 px-4 text-white"  onClick={() => navigate(-1)}>Go Back</button> 
-        </div>
+        <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
+        <button
+          className="rounded-md py-1 ring-2 ring-red-300 ring-inset bg-red-800 px-4 text-white"
+          onClick={() => navigate(-1)}
+        >
+          Go Back
+        </button>
+      </div>
       <div className="grid grid-cols-1 gap-4">
         <div className="p-4 shadow rounded-md border bg-gray-200 ">
-        
           <h3 className="text-2xl font-bold mb-3">Student Lists:</h3>
 
           <div className="overflow-x-auto">
@@ -56,15 +58,15 @@ const PendingStudent = () => {
                     Father
                   </th>
                   <th className="py-3 px-6 text-left text-sm font-medium text-white w-[15%]">
-                    Mother
-                  </th>
-                  <th className="py-3 px-6 text-left text-sm font-medium text-white w-[15%]">
                     Adhaar
                   </th>
                   <th className="py-3 px-6 text-left text-sm font-medium text-white w-[15%]">
                     Mobile
                   </th>
-                  <th className="py-3 px-6 text-left text-sm font-medium text-center text-white w-[8%]" colSpan={2}>
+                  <th
+                    className="py-3 px-6 text-left text-sm font-medium text-center text-white w-[8%]"
+                    colSpan={2}
+                  >
                     Action
                   </th>
                 </tr>
@@ -75,7 +77,9 @@ const PendingStudent = () => {
                     key={s.id}
                     className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
                   >
-                    <td className="py-2 px-6 text-sm text-gray-700">{index+1}</td>
+                    <td className="py-2 px-6 text-sm text-gray-700">
+                      {index + 1}
+                    </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
                       {s.studentuid}
                     </td>
@@ -93,9 +97,6 @@ const PendingStudent = () => {
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
                       {s.father}
-                    </td>
-                    <td className="py-2 px-6 text-sm text-gray-700">
-                      {s.mother}
                     </td>
                     <td className="py-2 px-6 text-sm text-gray-700">
                       {s.adhaar}
