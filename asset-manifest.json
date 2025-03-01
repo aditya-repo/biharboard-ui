@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/biharboard-ui/static/css/main.aea85fee.css",
-    "main.js": "/biharboard-ui/static/js/main.7dc59c89.js",
+    "main.css": "/biharboard-ui/static/css/main.d40a9978.css",
+    "main.js": "/biharboard-ui/static/js/main.765845af.js",
     "static/js/453.4b42448f.chunk.js": "/biharboard-ui/static/js/453.4b42448f.chunk.js",
     "static/media/TiroDevanagariHindi-Regular.ttf": "/biharboard-ui/static/media/TiroDevanagariHindi-Regular.3f8b5192d5bacaa4b91a.ttf",
     "static/media/form1.jpeg": "/biharboard-ui/static/media/form1.2938da170e34c24cc008.jpeg",
@@ -11,12 +11,12 @@
     "static/media/logo.png": "/biharboard-ui/static/media/logo.bc2b1d08da4a43280f17.png",
     "static/media/photo.jpg": "/biharboard-ui/static/media/photo.ded28db11b0e628b7724.jpg",
     "index.html": "/biharboard-ui/index.html",
-    "main.aea85fee.css.map": "/biharboard-ui/static/css/main.aea85fee.css.map",
-    "main.7dc59c89.js.map": "/biharboard-ui/static/js/main.7dc59c89.js.map",
+    "main.d40a9978.css.map": "/biharboard-ui/static/css/main.d40a9978.css.map",
+    "main.765845af.js.map": "/biharboard-ui/static/js/main.765845af.js.map",
     "453.4b42448f.chunk.js.map": "/biharboard-ui/static/js/453.4b42448f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.aea85fee.css",
-    "static/js/main.7dc59c89.js"
+    "static/css/main.d40a9978.css",
+    "static/js/main.765845af.js"
   ]
 }
